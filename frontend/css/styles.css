@@ -1,0 +1,71 @@
+/* Bloque de variables: colores base para consistencia visual */
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --primary: #0057a3;
+  --accent: #0ea5e9;
+  --danger: #b91c1c;
+}
+
+/* Bloque de reset minimo: evita diferencias fuertes entre navegadores */
+* {
+  box-sizing: border-box;
+}
+
+/* Bloque de layout general de la pagina */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #eaf3ff, var(--bg));
+  color: var(--text);
+}
+
+/* Bloque de cabecera principal */
+.main-header {
+  padding: 2rem 1rem;
+  text-align: center;
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Bloque de mensajes de estado */
+.status-zone {
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Bloque de grid responsive para catalogo */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1100px;
+  margin: 0 auto 2rem auto;
+}
+
+/* Bloque de tarjeta de producto */
+.product-card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+/* Bloque de tipografia para nombre y precio */
+.product-card h3 {
+  margin: 0 0 0.75rem 0;
+}
+
+.product-card .price {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Bloque de estado de error */
+.error {
+  color: var(--danger);
+  font-weight: 600;
+}

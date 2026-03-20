@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda de Redes</title>
+    <!-- Bloque de estilos globales para la interfaz -->
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <!-- Bloque principal: cabecera de la tienda -->
+    <header class="main-header">
+      <h1>Tienda de Equipos de Redes</h1>
+      <p>Routers, switches, access points, firewalls y NAS</p>
+    </header>
+
+    <!-- Bloque de estado: mensajes de carga o error -->
+    <section class="status-zone">
+      <p id="statusMessage">Cargando productos...</p>
+    </section>
+
+    <!-- Bloque de catalogo: aqui JavaScript pintara las tarjetas -->
+    <main>
+      <section id="productGrid" class="product-grid"></section>
+    </main>
+
+    <!-- Bloque de script: logica para consumir API y renderizar catalogo -->
+    <script src="./js/app.js"></script>
+  </body>
+</html>
