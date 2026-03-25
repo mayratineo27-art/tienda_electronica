@@ -1,6 +1,7 @@
 import {
   STORAGE_KEYS,
   formatPrice,
+  escapeHtml,
   readFromStorage,
   writeToStorage,
   showAlert,
@@ -51,7 +52,7 @@ function renderCartItems(items) {
     .map(
       (item) => `
       <article data-product-id="${item.id}">
-        <h3>${item.name}</h3>
+        <h3>${escapeHtml(item.name)}</h3>
         <p>Precio unitario: ${formatPrice(item.price)}</p>
         <label for="qty-${item.id}">Cantidad</label>
         <input id="qty-${item.id}" type="number" min="1" value="${item.quantity}" data-action="update-quantity" />

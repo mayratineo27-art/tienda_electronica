@@ -2,6 +2,8 @@ import {
   getJSON,
   debounce,
   formatPrice,
+  escapeHtml,
+  sanitizeInput,
   STORAGE_KEYS,
   readFromStorage,
   writeToStorage,
@@ -48,12 +50,13 @@ function applyFilters() {
   const priceMin = Number(formData.get("precioMin") || 0);
   const priceMax = Number(formData.get("precioMax") || Number.MAX_SAFE_INTEGER);
   const searchText = String(formData.get("search") || "").trim().toLowerCase();
+  const safeSearchText = sanitizeInput(searchText);
 
   state.filteredProducts = state.products.filter((product) => {
     const categoryValue = String(product.category || "").toLowerCase();
     const inCategory = selectedCategories.length === 0 || selectedCategories.some((category) => categoryValue.includes(category));
     const inPriceRange = Number(product.price) >= priceMin && Number(product.price) <= priceMax;
-    const inSearch = searchText.length === 0 || String(product.name).toLowerCase().includes(searchText);
+    const inSearch = safeSearchText.length === 0 || String(product.name).toLowerCase().includes(safeSearchText);
     return inCategory && inPriceRange && inSearch;
   });
 }
@@ -105,12 +108,12 @@ function renderProducts() {
     .map(
       (product) => `
       <article data-product-id="${product.id}">
-        <h3>${product.name}</h3>
-        <p>${product.description}</p>
+        <h3>${escapeHtml(product.name)}</h3>
+        <p>${escapeHtml(product.description)}</p>
         <p>Precio: ${formatPrice(product.price)}</p>
         <p>Stock: <span class="badge ${product.stock > 0 ? "badge-success" : "badge-danger"}">${product.stock > 0 ? "Disponible" : "Agotado"}</span></p>
         <div>
-          <a href="./producto.html?id=${product.id}" aria-label="Ver detalle de ${product.name}">Ver detalle</a>
+          <a href="./producto.html?id=${product.id}" aria-label="Ver detalle de ${escapeHtml(product.name)}">Ver detalle</a>
           <button type="button" data-action="add-to-cart">Agregar</button>
         </div>
       </article>
@@ -243,7 +246,7 @@ function bindDelegatedEvents() {
 // Bloque de carga de datos: obtiene productos del backend y activa fallback si falla.
 async function loadProducts() {
   try {
-    const products = await getJSON("/products");
+    const products = await getJSON("/productos");
     state.products = products;
   } catch (error) {
     console.error("Fallo API, se usa fallback local:", error);

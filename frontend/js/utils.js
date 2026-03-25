@@ -4,9 +4,26 @@ export const API_BASE_URL = "http://localhost:3000/api";
 // Bloque de llaves de almacenamiento: evita cadenas repetidas y errores de tipeo.
 export const STORAGE_KEYS = {
   cart: "tienda_redes_cart",
-  token: "tienda_redes_token",
+  accessToken: "tienda_redes_access_token",
   user: "tienda_redes_user"
 };
+
+// Bloque de sanitizacion: neutraliza caracteres especiales para prevenir XSS en render HTML.
+export function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Bloque de limpieza de entrada: elimina etiquetas y espacios redundantes antes de enviar datos.
+export function sanitizeInput(value) {
+  return String(value || "")
+    .replace(/<[^>]*>?/gm, "")
+    .trim();
+}
 
 // Bloque de formato monetario: presenta montos en pesos con formato legible.
 export function formatPrice(value) {
@@ -35,6 +52,22 @@ export function readFromStorage(key, fallback = null) {
 // Bloque de escritura de JSON en localStorage: persiste datos entre recargas del navegador.
 export function writeToStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Bloque de sesion: lee access token actual desde almacenamiento local.
+export function getAccessToken() {
+  return readFromStorage(STORAGE_KEYS.accessToken, null);
+}
+
+// Bloque de sesion: guarda access token de corta duracion.
+export function setAccessToken(token) {
+  writeToStorage(STORAGE_KEYS.accessToken, token);
+}
+
+// Bloque de sesion: elimina token y usuario al cerrar sesion.
+export function clearAuthStorage() {
+  localStorage.removeItem(STORAGE_KEYS.accessToken);
+  localStorage.removeItem(STORAGE_KEYS.user);
 }
 
 // Bloque de utilidades de interfaz: muestra mensajes de estado accesibles para usuario.
@@ -96,7 +129,9 @@ export function debounce(callback, delayMs = 300) {
 
 // Bloque de wrapper HTTP GET: simplifica consumo de API con manejo de error uniforme.
 export async function getJSON(endpoint) {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`);
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    credentials: "include"
+  });
 
   if (!response.ok) {
     throw new Error(`GET ${endpoint} fallo con estado ${response.status}`);
@@ -105,21 +140,58 @@ export async function getJSON(endpoint) {
   return response.json();
 }
 
+// Bloque de renovacion de token: usa refresh token en cookie httpOnly para emitir nuevo access token.
+export async function refreshAccessToken() {
+  const response = await fetch(`${API_BASE_URL}/usuarios/refresh`, {
+    method: "POST",
+    credentials: "include"
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.accessToken) {
+    throw new Error(data.message || "No fue posible renovar la sesion");
+  }
+
+  setAccessToken(data.accessToken);
+  return data.accessToken;
+}
+
 // Bloque de wrapper HTTP con cuerpo: reutilizable para POST, PUT y PATCH.
 export async function requestJSON(endpoint, method, payload, token = null) {
+  const finalToken = token || getAccessToken();
+
   const headers = {
     "Content-Type": "application/json"
   };
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+  if (finalToken) {
+    headers.Authorization = `Bearer ${finalToken}`;
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  let response = await fetch(`${API_BASE_URL}${endpoint}`, {
     method,
     headers,
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    credentials: "include"
   });
+
+  // Si el access token expiro, intenta renovarlo una vez y reintenta la peticion.
+  if (response.status === 401 && finalToken) {
+    try {
+      const renewedToken = await refreshAccessToken();
+      headers.Authorization = `Bearer ${renewedToken}`;
+
+      response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method,
+        headers,
+        body: JSON.stringify(payload),
+        credentials: "include"
+      });
+    } catch (error) {
+      clearAuthStorage();
+      throw error;
+    }
+  }
 
   const responseData = await response.json().catch(() => ({}));
 

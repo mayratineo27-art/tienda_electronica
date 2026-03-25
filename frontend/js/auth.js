@@ -5,6 +5,8 @@ import {
   validateRequiredFields,
   STORAGE_KEYS,
   writeToStorage,
+  setAccessToken,
+  sanitizeInput,
   showAlert,
   clearAlert
 } from "./utils.js";
@@ -16,7 +18,7 @@ const authStatus = document.getElementById("auth-status");
 
 // Bloque de persistencia de sesion: guarda token y datos minimos de usuario.
 function saveAuthSession(token, userData) {
-  writeToStorage(STORAGE_KEYS.token, token);
+  setAccessToken(token);
   writeToStorage(STORAGE_KEYS.user, userData);
 }
 
@@ -61,12 +63,12 @@ function validateRegisterForm(formData) {
 // Bloque de envio de login: consume endpoint y guarda JWT para sesion de usuario.
 async function submitLogin(formData) {
   const payload = {
-    email: String(formData.get("email")).trim(),
+    email: sanitizeInput(formData.get("email")).toLowerCase(),
     password: String(formData.get("password"))
   };
 
-  const response = await requestJSON("/auth/login", "POST", payload);
-  saveAuthSession(response.token, response.user);
+  const response = await requestJSON("/usuarios/login", "POST", payload, null);
+  saveAuthSession(response.accessToken, response.user);
   showAlert(authStatus, "Inicio de sesion exitoso.", "success");
   window.location.href = "./catalogo.html";
 }
@@ -74,12 +76,12 @@ async function submitLogin(formData) {
 // Bloque de envio de registro: crea usuario y, opcionalmente, inicia sesion automatica.
 async function submitRegister(formData) {
   const payload = {
-    name: String(formData.get("name")).trim(),
-    email: String(formData.get("email")).trim(),
+    name: sanitizeInput(formData.get("name")),
+    email: sanitizeInput(formData.get("email")).toLowerCase(),
     password: String(formData.get("password"))
   };
 
-  await requestJSON("/auth/register", "POST", payload);
+  await requestJSON("/usuarios/registro", "POST", payload, null);
   showAlert(authStatus, "Cuenta creada correctamente. Ahora puedes iniciar sesion.", "success");
   window.location.href = "./login.html";
 }

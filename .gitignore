@@ -1,0 +1,41 @@
+# Dependencias de Node.js
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+*.log
+
+# Archivos de build y cache
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+.vscode-test/
+
+# Sistema operativo y editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/settings.json
+
+# Archivos de despliegue local
+.vercel/
+.railway/
+
+# Base de datos local o volcados temporales
+*.sql.tmp
+*.sqlite
+*.db
