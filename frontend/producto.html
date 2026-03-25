@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Bloque de metadatos base para documento HTML5 -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle de Producto | Tienda de Redes</title>
+  </head>
+  <body>
+    <!-- Bloque de cabecera de pagina de detalle -->
+    <header role="banner">
+      <h1>Detalle de Producto</h1>
+    </header>
+
+    <!-- Bloque de navegacion contextual para regresar al catalogo -->
+    <nav aria-label="Navegacion de producto">
+      <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./catalogo.html">Catalogo</a></li>
+        <li><a href="./carrito.html">Carrito</a></li>
+      </ul>
+    </nav>
+
+    <!-- Bloque principal: ficha tecnica y acciones de compra -->
+    <main>
+      <!-- Seccion de informacion comercial principal -->
+      <section aria-labelledby="producto-titulo">
+        <h2 id="producto-titulo">Router AX3000</h2>
+        <img src="./assets/router-ax3000.jpg" alt="Router AX3000 de color negro con cuatro antenas" />
+        <p>Router de alto desempeño para redes residenciales y pymes.</p>
+        <p><strong>Precio:</strong> $129.90</p>
+        <button type="button" aria-label="Agregar Router AX3000 al carrito">Agregar al carrito</button>
+      </section>
+
+      <!-- Seccion de especificaciones tecnicas para toma de decision -->
+      <section aria-labelledby="specs-titulo">
+        <h2 id="specs-titulo">Especificaciones tecnicas</h2>
+        <article>
+          <h3>Conectividad</h3>
+          <ul>
+            <li>WiFi 6 (802.11ax)</li>
+            <li>4 puertos LAN Gigabit</li>
+            <li>1 puerto WAN Gigabit</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Rendimiento</h3>
+          <ul>
+            <li>Velocidad combinada hasta 3000 Mbps</li>
+            <li>Soporte de OFDMA y MU-MIMO</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <!-- Bloque final de pie de pagina -->
+    <footer>
+      <p>Garantia oficial de fabricante por 12 meses.</p>
+    </footer>
+  </body>
+</html>

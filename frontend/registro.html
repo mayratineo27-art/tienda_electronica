@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Bloque de metadatos para formulario de registro -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro | Tienda de Redes</title>
+  </head>
+  <body>
+    <!-- Bloque de cabecera de alta de usuarios -->
+    <header role="banner">
+      <h1>Crear Cuenta</h1>
+    </header>
+
+    <!-- Bloque principal con formulario de registro -->
+    <main>
+      <section aria-labelledby="registro-titulo">
+        <h2 id="registro-titulo">Registro de cliente</h2>
+        <form aria-label="Formulario de registro de usuario">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" name="name" type="text" autocomplete="name" required />
+
+          <label for="registro-email">Correo electronico</label>
+          <input id="registro-email" name="email" type="email" autocomplete="email" required />
+
+          <label for="registro-password">Contrasena</label>
+          <input id="registro-password" name="password" type="password" autocomplete="new-password" required />
+
+          <label for="confirm-password">Confirmar contrasena</label>
+          <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required />
+
+          <button type="submit">Crear cuenta</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Bloque de pie de pagina -->
+    <footer>
+      <p>Protegemos tus datos bajo buenas practicas de seguridad.</p>
+    </footer>
+  </body>
+</html>

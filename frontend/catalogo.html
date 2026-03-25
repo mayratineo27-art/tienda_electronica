@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Bloque de metadatos: codificacion y adaptacion movil -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalogo | Tienda de Redes</title>
+  </head>
+  <body>
+    <!-- Bloque de cabecera: titulo de contexto para el usuario -->
+    <header role="banner">
+      <h1>Catalogo de Productos</h1>
+      <p>Filtra y compara equipos para tu proyecto de red.</p>
+    </header>
+
+    <!-- Bloque de navegacion global del sitio -->
+    <nav aria-label="Navegacion principal">
+      <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./catalogo.html" aria-current="page">Catalogo</a></li>
+        <li><a href="./carrito.html">Carrito</a></li>
+      </ul>
+    </nav>
+
+    <!-- Bloque principal: contiene filtros y listado de productos -->
+    <main>
+      <!-- Seccion lateral de filtros: categoria, precio y marca -->
+      <section aria-labelledby="filtros-titulo">
+        <h2 id="filtros-titulo">Filtros</h2>
+        <form aria-label="Formulario de filtros de catalogo">
+          <fieldset>
+            <legend>Categoria</legend>
+            <label><input type="checkbox" name="categoria" value="routers" /> Routers</label>
+            <label><input type="checkbox" name="categoria" value="switches" /> Switches</label>
+            <label><input type="checkbox" name="categoria" value="access-points" /> Access Points</label>
+          </fieldset>
+          <fieldset>
+            <legend>Rango de precio</legend>
+            <label for="precio-min">Minimo</label>
+            <input id="precio-min" name="precioMin" type="number" min="0" />
+            <label for="precio-max">Maximo</label>
+            <input id="precio-max" name="precioMax" type="number" min="0" />
+          </fieldset>
+          <button type="submit">Aplicar filtros</button>
+        </form>
+      </section>
+
+      <!-- Seccion de resultados: tarjetas de productos del catalogo -->
+      <section aria-labelledby="resultados-titulo">
+        <h2 id="resultados-titulo">Resultados</h2>
+        <article>
+          <h3>Router AX3000</h3>
+          <p>WiFi 6 doble banda para alto rendimiento.</p>
+          <a href="./producto.html" aria-label="Ver detalle del Router AX3000">Ver detalle</a>
+        </article>
+        <article>
+          <h3>Firewall UTM</h3>
+          <p>Control de trafico y seguridad perimetral.</p>
+          <a href="./producto.html" aria-label="Ver detalle del Firewall UTM">Ver detalle</a>
+        </article>
+      </section>
+    </main>
+
+    <!-- Bloque de pie de pagina con informacion secundaria -->
+    <footer>
+      <p>Soporte tecnico: soporte@tiendaredes.com</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Bloque de metadatos para panel administrativo -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin | Tienda de Redes</title>
+  </head>
+  <body>
+    <!-- Bloque de cabecera con contexto de administrador -->
+    <header role="banner">
+      <h1>Panel de Administracion</h1>
+      <p>Control de catalogo, inventario y pedidos.</p>
+    </header>
+
+    <!-- Bloque de navegacion del panel admin -->
+    <nav aria-label="Navegacion de administracion">
+      <ul>
+        <li><a href="../index.html">Ver tienda</a></li>
+        <li><a href="./dashboard.html" aria-current="page">Dashboard</a></li>
+      </ul>
+    </nav>
+
+    <!-- Bloque principal: metricas y acciones de gestion -->
+    <main>
+      <!-- Seccion de indicadores clave para decision operativa -->
+      <section aria-labelledby="kpi-titulo">
+        <h2 id="kpi-titulo">Indicadores clave</h2>
+        <article>
+          <h3>Ventas del dia</h3>
+          <p>$1,280.00</p>
+        </article>
+        <article>
+          <h3>Pedidos pendientes</h3>
+          <p>14</p>
+        </article>
+        <article>
+          <h3>Stock critico</h3>
+          <p>6 productos</p>
+        </article>
+      </section>
+
+      <!-- Seccion de accesos rapidos para tareas administrativas -->
+      <section aria-labelledby="acciones-titulo">
+        <h2 id="acciones-titulo">Acciones rapidas</h2>
+        <ul>
+          <li><a href="#" role="button" aria-label="Crear nuevo producto">Nuevo producto</a></li>
+          <li><a href="#" role="button" aria-label="Revisar pedidos">Gestionar pedidos</a></li>
+          <li><a href="#" role="button" aria-label="Administrar usuarios">Gestionar usuarios</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Bloque final del panel -->
+    <footer>
+      <p>Zona administrativa restringida.</p>
+    </footer>
+  </body>
+</html>

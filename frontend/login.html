@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Bloque de metadatos base para autenticacion -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesion | Tienda de Redes</title>
+  </head>
+  <body>
+    <!-- Bloque de cabecera de autenticacion -->
+    <header role="banner">
+      <h1>Iniciar Sesion</h1>
+    </header>
+
+    <!-- Bloque principal con formulario de acceso -->
+    <main>
+      <section aria-labelledby="login-titulo">
+        <h2 id="login-titulo">Acceso de usuarios</h2>
+        <form aria-label="Formulario de inicio de sesion">
+          <label for="login-email">Correo electronico</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" required />
+
+          <label for="login-password">Contrasena</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+
+          <button type="submit">Entrar</button>
+        </form>
+        <p>
+          No tienes cuenta?
+          <a href="./registro.html">Registrate aqui</a>
+        </p>
+      </section>
+    </main>
+
+    <!-- Bloque de pie de pagina legal -->
+    <footer>
+      <p>Al continuar aceptas nuestros terminos y condiciones.</p>
+    </footer>
+  </body>
+</html>

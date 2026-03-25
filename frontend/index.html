@@ -1,30 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <!-- Bloque de metadatos: codificacion y viewport para soporte responsive -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tienda de Redes</title>
-    <!-- Bloque de estilos globales para la interfaz -->
-    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Inicio | Tienda de Redes</title>
   </head>
   <body>
-    <!-- Bloque principal: cabecera de la tienda -->
-    <header class="main-header">
+    <!-- Bloque de cabecera: identidad del sitio y acceso rapido a navegacion -->
+    <header role="banner">
       <h1>Tienda de Equipos de Redes</h1>
-      <p>Routers, switches, access points, firewalls y NAS</p>
+      <p>Soluciones profesionales en conectividad y seguridad</p>
     </header>
 
-    <!-- Bloque de estado: mensajes de carga o error -->
-    <section class="status-zone">
-      <p id="statusMessage">Cargando productos...</p>
-    </section>
+    <!-- Bloque de navegacion principal: enlaces globales del sitio -->
+    <nav aria-label="Navegacion principal">
+      <ul>
+        <li><a href="./index.html" aria-current="page">Inicio</a></li>
+        <li><a href="./catalogo.html">Catalogo</a></li>
+        <li><a href="./carrito.html">Carrito</a></li>
+        <li><a href="./login.html">Iniciar sesion</a></li>
+      </ul>
+    </nav>
 
-    <!-- Bloque de catalogo: aqui JavaScript pintara las tarjetas -->
-    <main>
-      <section id="productGrid" class="product-grid"></section>
+    <!-- Bloque principal de contenido: hero, categorias y ofertas -->
+    <main id="contenido-principal">
+      <!-- Seccion hero: propuesta de valor y llamada a la accion -->
+      <section aria-labelledby="hero-titulo">
+        <h2 id="hero-titulo">Infraestructura de red para hogar y empresa</h2>
+        <p>Encuentra equipos de alto rendimiento para cada topologia.</p>
+        <a href="./catalogo.html" role="button" aria-label="Ir al catalogo completo">Ver catalogo</a>
+      </section>
+
+      <!-- Seccion de categorias: resumen de lineas de producto destacadas -->
+      <section aria-labelledby="categorias-titulo">
+        <h2 id="categorias-titulo">Categorias destacadas</h2>
+        <article>
+          <h3>Routers</h3>
+          <p>Enrutamiento estable para trafico residencial y empresarial.</p>
+        </article>
+        <article>
+          <h3>Switches</h3>
+          <p>Conmutacion para segmentacion, VLAN y crecimiento de red.</p>
+        </article>
+        <article>
+          <h3>Firewalls</h3>
+          <p>Proteccion perimetral y control de trafico en tiempo real.</p>
+        </article>
+      </section>
+
+      <!-- Seccion de ofertas: productos en promocion en portada -->
+      <section aria-labelledby="ofertas-titulo">
+        <h2 id="ofertas-titulo">Productos en oferta</h2>
+        <article aria-label="Oferta router AX3000">
+          <h3>Router AX3000</h3>
+          <p>Precio promocional por tiempo limitado.</p>
+          <a href="./producto.html">Ver detalle</a>
+        </article>
+        <article aria-label="Oferta switch administrable">
+          <h3>Switch 24 Puertos</h3>
+          <p>Incluye soporte de VLAN y gestion centralizada.</p>
+          <a href="./producto.html">Ver detalle</a>
+        </article>
+      </section>
     </main>
 
-    <!-- Bloque de script: logica para consumir API y renderizar catalogo -->
-    <script src="./js/app.js"></script>
+    <!-- Bloque de pie de pagina: informacion legal y enlaces secundarios -->
+    <footer>
+      <p>&copy; 2026 Tienda de Redes. Todos los derechos reservados.</p>
+    </footer>
   </body>
 </html>
