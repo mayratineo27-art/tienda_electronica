@@ -1,79 +1,866 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <!-- Bloque de metadatos: codificacion y viewport para soporte responsive -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio | Tienda de Redes</title>
-    <!-- Bloque de estilos: ordenado por capas para controlar la cascada -->
-    <link rel="stylesheet" href="./css/variables.css" />
-    <link rel="stylesheet" href="./css/base.css" />
-    <link rel="stylesheet" href="./css/components.css" />
-    <link rel="stylesheet" href="./css/pages.css" />
-    <link rel="stylesheet" href="./css/responsive.css" />
-  </head>
-  <body class="page-home">
-    <!-- Bloque de cabecera: identidad del sitio y acceso rapido a navegacion -->
-    <header role="banner">
-      <h1>Tienda de Equipos de Redes</h1>
-      <p>Soluciones profesionales en conectividad y seguridad</p>
-    </header>
+    <title>NetStore Pro | Tienda de Tecnologia de Redes</title>
 
-    <!-- Bloque de navegacion principal: enlaces globales del sitio -->
-    <nav aria-label="Navegacion principal">
-      <ul>
-        <li><a href="./index.html" aria-current="page">Inicio</a></li>
-        <li><a href="./catalogo.html">Catalogo</a></li>
-        <li><a href="./carrito.html">Carrito</a></li>
-        <li><a href="./login.html">Iniciar sesion</a></li>
-      </ul>
+    <!-- Importamos tipografias para jerarquia visual profesional en e-commerce -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Variables CSS: centralizan colores y fuentes para escalabilidad y consistencia visual */
+      :root {
+        --color-bg: #0a0f1c;
+        --color-surface: #111a2f;
+        --color-surface-soft: #182440;
+        --color-primary: #2563eb;
+        --color-cyan: #00d4ff;
+        --color-text: #e5e7eb;
+        --color-muted: #9ca3af;
+        --color-border: rgba(148, 163, 184, 0.24);
+        --font-title: "Syne", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+        --shadow-main: 0 16px 50px rgba(0, 0, 0, 0.35);
+      }
+
+      /* Reset base: unifica box model y elimina inconsistencias entre navegadores */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Configuracion global: define fondo, tipografia principal y scroll suave entre secciones */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: radial-gradient(circle at 20% 10%, rgba(37, 99, 235, 0.25), transparent 40%), var(--color-bg);
+        color: var(--color-text);
+        min-height: 100vh;
+      }
+
+      /* Contenedor principal: limita ancho para lectura y composicion premium */
+      .container {
+        width: min(1140px, calc(100% - 2rem));
+        margin-inline: auto;
+      }
+
+      /* Navbar glassmorphism: usa transparencia + blur para efecto de profundidad moderna */
+      .navbar {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 1000;
+        backdrop-filter: blur(14px);
+        background: rgba(8, 12, 24, 0.64);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .navbar-inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 1rem;
+        min-height: 74px;
+      }
+
+      .logo {
+        font-family: var(--font-title);
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: var(--color-cyan);
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+        gap: 1.1rem;
+        justify-content: center;
+      }
+
+      .menu a {
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 500;
+        opacity: 0.9;
+        transition: color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .menu a:hover {
+        color: var(--color-cyan);
+        opacity: 1;
+      }
+
+      .nav-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.65rem;
+      }
+
+      /* Busqueda expandible: input aumenta ancho cuando tiene estado activo */
+      .search-wrap {
+        position: relative;
+      }
+
+      .search-btn,
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--color-border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--color-text);
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+
+      .search-input {
+        position: absolute;
+        right: 48px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        opacity: 0;
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        background: rgba(11, 19, 38, 0.9);
+        color: #fff;
+        padding: 0.6rem 0.9rem;
+        transition: width 0.25s ease, opacity 0.25s ease;
+      }
+
+      .search-wrap.active .search-input {
+        width: 220px;
+        opacity: 1;
+      }
+
+      .badge-count {
+        position: absolute;
+        top: -6px;
+        right: -5px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 9px;
+        background: var(--color-cyan);
+        color: #001219;
+        font-size: 0.72rem;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        padding: 0 0.35rem;
+      }
+
+      /* Hero con gradiente animado: genera dinamismo visual de alto impacto al cargar */
+      .hero {
+        padding: 8.3rem 0 4rem;
+      }
+
+      .hero-box {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-main);
+      }
+
+      .hero-copy,
+      .hero-media {
+        padding: 2.1rem;
+      }
+
+      .hero-copy {
+        background: linear-gradient(120deg, rgba(13, 24, 46, 0.95), rgba(20, 39, 74, 0.72));
+      }
+
+      .hero-media {
+        background: linear-gradient(130deg, #111f3f, #1a2f5f, #155988, #0e2d5f);
+        background-size: 300% 300%;
+        animation: gradientMove 8s ease infinite;
+        display: grid;
+        place-items: center;
+      }
+
+      /* Keyframe: desplaza gradiente para dar sensacion de energia en el hero */
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero h1 {
+        font-family: var(--font-title);
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 1.06;
+        margin-bottom: 0.9rem;
+      }
+
+      .hero p {
+        color: var(--color-muted);
+        max-width: 54ch;
+      }
+
+      .hero-actions {
+        margin-top: 1.35rem;
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 0.75rem 1.25rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: var(--color-primary);
+        color: #fff;
+        box-shadow: 0 0 24px rgba(37, 99, 235, 0.42);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--color-cyan);
+        border: 1px solid rgba(0, 212, 255, 0.58);
+      }
+
+      .mockup {
+        width: min(450px, 100%);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      }
+
+      /* Secciones generales: espacio vertical para ritmo visual entre bloques */
+      section {
+        padding: 2rem 0;
+      }
+
+      .section-title {
+        font-family: var(--font-title);
+        font-size: clamp(1.4rem, 2.8vw, 2rem);
+        margin-bottom: 1.1rem;
+      }
+
+      /* Grid de categorias: tarjetas con borde iluminado y elevacion en hover */
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .cat-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        padding: 1rem;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .cat-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(0, 212, 255, 0.9);
+        box-shadow: 0 0 28px rgba(0, 212, 255, 0.22);
+      }
+
+      .cat-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0.7rem;
+      }
+
+      .cat-card p {
+        color: var(--color-muted);
+        font-size: 0.94rem;
+      }
+
+      /* Tarjetas de ofertas: incluyen badge de descuento, rating y boton de carrito */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .product-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .product-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 0.26rem 0.55rem;
+        border-radius: 999px;
+        background: linear-gradient(110deg, var(--color-primary), var(--color-cyan));
+        color: #fff;
+      }
+
+      .product-body {
+        padding: 0.9rem;
+      }
+
+      .product-name {
+        font-weight: 700;
+        margin-bottom: 0.55rem;
+      }
+
+      .price-row {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      .old-price {
+        color: #94a3b8;
+        text-decoration: line-through;
+      }
+
+      .new-price {
+        color: var(--color-cyan);
+        font-weight: 700;
+      }
+
+      .stars {
+        color: #facc15;
+        font-size: 0.92rem;
+        margin: 0.5rem 0 0.8rem;
+      }
+
+      .add-btn {
+        width: 100%;
+        border: none;
+        border-radius: 12px;
+        padding: 0.64rem;
+        background: rgba(37, 99, 235, 0.2);
+        color: #fff;
+        border: 1px solid rgba(37, 99, 235, 0.65);
+        cursor: pointer;
+        font-weight: 700;
+        transition: background 0.2s ease;
+      }
+
+      .add-btn:hover {
+        background: rgba(37, 99, 235, 0.45);
+      }
+
+      /* Keyframe de feedback: da confirmacion visual al hacer click en agregar carrito */
+      @keyframes pop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(0.95);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .add-btn.clicked {
+        animation: pop 0.26s ease;
+      }
+
+      /* Marcas: logos en gris para enfoque minimalista, recuperan color al hover */
+      .brands-row {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.8rem;
+      }
+
+      .brand {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        min-height: 64px;
+        display: grid;
+        place-items: center;
+        color: #94a3b8;
+        filter: grayscale(1);
+        transition: filter 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      }
+
+      .brand:hover {
+        filter: grayscale(0);
+        color: var(--color-cyan);
+        transform: translateY(-2px);
+      }
+
+      /* Banner de valor: resume ventajas competitivas para confianza de compra */
+      .value-banner {
+        background: linear-gradient(140deg, rgba(37, 99, 235, 0.12), rgba(0, 212, 255, 0.12));
+        border: 1px solid rgba(0, 212, 255, 0.34);
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      .value-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.8rem;
+      }
+
+      .value-item {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      .value-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 212, 255, 0.14);
+        color: var(--color-cyan);
+        font-weight: 700;
+      }
+
+      /* Footer: columnas informativas para cierre de navegacion y SEO interno */
+      footer {
+        margin-top: 2rem;
+        border-top: 1px solid var(--color-border);
+        background: #090d19;
+      }
+
+      .footer-grid {
+        padding: 2rem 0;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .footer-col h4 {
+        font-family: var(--font-title);
+        margin-bottom: 0.6rem;
+      }
+
+      .footer-col a,
+      .footer-col p,
+      .footer-col li {
+        color: var(--color-muted);
+        font-size: 0.94rem;
+        text-decoration: none;
+        list-style: none;
+        margin-bottom: 0.35rem;
+      }
+
+      .socials {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .socials a {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--color-border);
+      }
+
+      /* Drawer de carrito: panel lateral fijo para ver items agregados sin salir de la pagina */
+      .drawer {
+        position: fixed;
+        top: 0;
+        right: -380px;
+        width: min(380px, 100%);
+        height: 100vh;
+        background: #0d1528;
+        border-left: 1px solid var(--color-border);
+        box-shadow: -20px 0 60px rgba(0, 0, 0, 0.45);
+        transition: right 0.3s ease;
+        z-index: 1200;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .drawer.open {
+        right: 0;
+      }
+
+      .drawer-header,
+      .drawer-footer {
+        padding: 1rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .drawer-footer {
+        border-bottom: none;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .drawer-list {
+        overflow: auto;
+        padding: 0.8rem 1rem;
+      }
+
+      .drawer-item {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        padding: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .drawer-close {
+        border: none;
+        background: transparent;
+        color: #fff;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 1100;
+      }
+
+      .overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Media query tablet: simplifica columnas para mantener legibilidad en 768px */
+      @media (max-width: 768px) {
+        .navbar-inner {
+          grid-template-columns: 1fr;
+          min-height: auto;
+          padding: 0.7rem 0;
+        }
+
+        .menu {
+          flex-wrap: wrap;
+        }
+
+        .nav-right {
+          justify-content: flex-start;
+        }
+
+        .hero {
+          padding-top: 11rem;
+        }
+
+        .hero-box {
+          grid-template-columns: 1fr;
+        }
+
+        .categories-grid,
+        .products-grid,
+        .brands-row,
+        .value-grid,
+        .footer-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      /* Media query movil: prioriza una sola columna para experiencia compacta en 480px */
+      @media (max-width: 480px) {
+        .container {
+          width: min(1140px, calc(100% - 1.2rem));
+        }
+
+        .categories-grid,
+        .products-grid,
+        .brands-row,
+        .value-grid,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .search-wrap.active .search-input {
+          width: 160px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar fija: integra branding, navegacion, busqueda y accesos de usuario/carrito -->
+    <nav class="navbar" aria-label="Barra principal de navegacion">
+      <div class="container navbar-inner">
+        <a class="logo" href="#inicio">Net<span>Store</span> Pro</a>
+
+        <ul class="menu">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#categorias">Categorias</a></li>
+          <li><a href="#ofertas">Ofertas</a></li>
+          <li><a href="#marcas">Marcas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <div class="search-wrap" id="searchWrap">
+            <input class="search-input" id="searchInput" type="search" placeholder="Buscar producto..." />
+            <button class="search-btn" id="searchToggle" aria-label="Abrir buscador">⌕</button>
+          </div>
+
+          <button class="icon-btn" aria-label="Perfil de usuario">👤</button>
+
+          <div style="position: relative;">
+            <button class="icon-btn" id="cartButton" aria-label="Abrir carrito">🛒</button>
+            <span class="badge-count" id="cartCount">0</span>
+          </div>
+        </div>
+      </div>
     </nav>
 
-    <!-- Bloque principal de contenido: hero, categorias y ofertas -->
-    <main id="contenido-principal">
-      <!-- Seccion hero: propuesta de valor y llamada a la accion -->
-      <section aria-labelledby="hero-titulo">
-        <h2 id="hero-titulo">Infraestructura de red para hogar y empresa</h2>
-        <p>Encuentra equipos de alto rendimiento para cada topologia.</p>
-        <a href="./catalogo.html" role="button" aria-label="Ir al catalogo completo">Ver catalogo</a>
+    <main id="inicio" class="container">
+      <!-- Hero impactante: comunica valor principal y dirige a conversion con CTA -->
+      <section class="hero">
+        <div class="hero-box">
+          <div class="hero-copy">
+            <h1>Arquitectura de red premium para empresas que no pueden fallar.</h1>
+            <p>
+              Diseña, moderniza y escala tu infraestructura con equipos de alto rendimiento.
+              Catálogo especializado en routers, switches y access points empresariales.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#ofertas">Comprar ofertas</a>
+              <a class="btn btn-secondary" href="#categorias">Explorar categorias</a>
+            </div>
+          </div>
+
+          <div class="hero-media">
+            <img
+              class="mockup"
+              src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=80"
+              alt="Servidor y equipos de red en un rack profesional"
+            />
+          </div>
+        </div>
       </section>
 
-      <!-- Seccion de categorias: resumen de lineas de producto destacadas -->
-      <section aria-labelledby="categorias-titulo">
-        <h2 id="categorias-titulo">Categorias destacadas</h2>
-        <article>
-          <h3>Routers</h3>
-          <p>Enrutamiento estable para trafico residencial y empresarial.</p>
-        </article>
-        <article>
-          <h3>Switches</h3>
-          <p>Conmutacion para segmentacion, VLAN y crecimiento de red.</p>
-        </article>
-        <article>
-          <h3>Firewalls</h3>
-          <p>Proteccion perimetral y control de trafico en tiempo real.</p>
-        </article>
+      <!-- Categorias: tarjetas con icono SVG para acceso rapido por tipo de producto -->
+      <section id="categorias">
+        <h2 class="section-title">Categorias destacadas</h2>
+        <div class="categories-grid">
+          <article class="cat-card">
+            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M4 7h16v4H4z"/><path d="M6 11v6h12v-6"/></svg>
+            <h3>Routers</h3>
+            <p>Balanceo de trafico, WiFi 6 y seguridad avanzada para oficina y hogar.</p>
+          </article>
+          <article class="cat-card">
+            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M4 6h16v3H4z"/><path d="M4 11h16v3H4z"/><path d="M4 16h16v3H4z"/></svg>
+            <h3>Switches</h3>
+            <p>Switches administrables L2/L3 para segmentacion, PoE y crecimiento.</p>
+          </article>
+          <article class="cat-card">
+            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M12 3v3"/><path d="M6.5 6.5l2.1 2.1"/><path d="M17.5 6.5l-2.1 2.1"/><circle cx="12" cy="13" r="5"/></svg>
+            <h3>Access Points</h3>
+            <p>Cobertura empresarial con roaming inteligente y control centralizado.</p>
+          </article>
+          <article class="cat-card">
+            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.2 8.6-8 10-4.8-1.4-8-5-8-10V6z"/></svg>
+            <h3>Firewalls</h3>
+            <p>Control perimetral con IDS/IPS y politicas de seguridad por segmentacion.</p>
+          </article>
+        </div>
       </section>
 
-      <!-- Seccion de ofertas: productos en promocion en portada -->
-      <section aria-labelledby="ofertas-titulo">
-        <h2 id="ofertas-titulo">Productos en oferta</h2>
-        <article aria-label="Oferta router AX3000">
-          <h3>Router AX3000</h3>
-          <p>Precio promocional por tiempo limitado.</p>
-          <a href="./producto.html">Ver detalle</a>
-        </article>
-        <article aria-label="Oferta switch administrable">
-          <h3>Switch 24 Puertos</h3>
-          <p>Incluye soporte de VLAN y gestion centralizada.</p>
-          <a href="./producto.html">Ver detalle</a>
-        </article>
+      <!-- Ofertas: grilla de productos con datos ficticios y botones de carrito funcionales -->
+      <section id="ofertas">
+        <h2 class="section-title">Ofertas de la semana</h2>
+        <div class="products-grid" id="productsGrid">
+          <article class="product-card" data-id="1" data-name="Router AX5400 Pro" data-price="980000">
+            <span class="discount-badge">-22%</span>
+            <img class="product-image" src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?auto=format&fit=crop&w=800&q=80" alt="Router AX5400 Pro" />
+            <div class="product-body">
+              <h3 class="product-name">Router AX5400 Pro</h3>
+              <div class="price-row"><span class="old-price">$1.250.000</span><span class="new-price">$980.000</span></div>
+              <p class="stars">★★★★★ (4.9)</p>
+              <button class="add-btn">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="2" data-name="Switch L2 24 Puertos" data-price="720000">
+            <span class="discount-badge">-18%</span>
+            <img class="product-image" src="https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=800&q=80" alt="Switch 24 Puertos" />
+            <div class="product-body">
+              <h3 class="product-name">Switch L2 24 Puertos</h3>
+              <div class="price-row"><span class="old-price">$879.000</span><span class="new-price">$720.000</span></div>
+              <p class="stars">★★★★☆ (4.6)</p>
+              <button class="add-btn">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="3" data-name="Access Point AX3000" data-price="640000">
+            <span class="discount-badge">-15%</span>
+            <img class="product-image" src="https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80" alt="Access Point AX3000" />
+            <div class="product-body">
+              <h3 class="product-name">Access Point AX3000</h3>
+              <div class="price-row"><span class="old-price">$755.000</span><span class="new-price">$640.000</span></div>
+              <p class="stars">★★★★★ (4.8)</p>
+              <button class="add-btn">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="4" data-name="Router Mesh Tri-Band" data-price="1180000">
+            <span class="discount-badge">-20%</span>
+            <img class="product-image" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=800&q=80" alt="Router Mesh Tri-Band" />
+            <div class="product-body">
+              <h3 class="product-name">Router Mesh Tri-Band</h3>
+              <div class="price-row"><span class="old-price">$1.490.000</span><span class="new-price">$1.180.000</span></div>
+              <p class="stars">★★★★☆ (4.7)</p>
+              <button class="add-btn">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="5" data-name="Switch PoE 16 Puertos" data-price="860000">
+            <span class="discount-badge">-17%</span>
+            <img class="product-image" src="https://images.unsplash.com/photo-1520869562399-e772f042f422?auto=format&fit=crop&w=800&q=80" alt="Switch PoE 16 Puertos" />
+            <div class="product-body">
+              <h3 class="product-name">Switch PoE 16 Puertos</h3>
+              <div class="price-row"><span class="old-price">$1.040.000</span><span class="new-price">$860.000</span></div>
+              <p class="stars">★★★★★ (4.9)</p>
+              <button class="add-btn">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="6" data-name="Access Point Outdoor IP67" data-price="570000">
+            <span class="discount-badge">-14%</span>
+            <img class="product-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Access Point Outdoor" />
+            <div class="product-body">
+              <h3 class="product-name">Access Point Outdoor IP67</h3>
+              <div class="price-row"><span class="old-price">$665.000</span><span class="new-price">$570.000</span></div>
+              <p class="stars">★★★★☆ (4.5)</p>
+              <button class="add-btn">Agregar al carrito</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Marcas: logos en gris con color al hover para efecto de descubrimiento -->
+      <section id="marcas">
+        <h2 class="section-title">Marcas aliadas</h2>
+        <div class="brands-row">
+          <div class="brand">Cisco</div>
+          <div class="brand">Ubiquiti</div>
+          <div class="brand">TP-Link</div>
+          <div class="brand">MikroTik</div>
+          <div class="brand">Juniper</div>
+          <div class="brand">Aruba</div>
+        </div>
+      </section>
+
+      <!-- Banner de propuesta de valor: fortalece confianza y reduce friccion de compra -->
+      <section>
+        <div class="value-banner">
+          <div class="value-grid">
+            <div class="value-item"><span class="value-icon">✓</span><div><strong>Envio gratis</strong><p>Desde $300.000</p></div></div>
+            <div class="value-item"><span class="value-icon">12</span><div><strong>Garantia</strong><p>Hasta 12 meses</p></div></div>
+            <div class="value-item"><span class="value-icon">24</span><div><strong>Soporte 24/7</strong><p>Equipo tecnico</p></div></div>
+            <div class="value-item"><span class="value-icon">🔒</span><div><strong>Pago seguro</strong><p>Pasarelas verificadas</p></div></div>
+          </div>
+        </div>
       </section>
     </main>
 
-    <!-- Bloque de pie de pagina: informacion legal y enlaces secundarios -->
-    <footer>
-      <p>&copy; 2026 Tienda de Redes. Todos los derechos reservados.</p>
+    <!-- Footer: informacion corporativa y enlaces de navegacion secundaria -->
+    <footer id="contacto">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h4 class="logo" style="display:inline-block; margin-bottom: 0.5rem;">Net<span>Store</span> Pro</h4>
+          <p>Especialistas en infraestructura de redes para empresas, ISP y proyectos de modernizacion digital.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Links utiles</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#ofertas">Ofertas</a></li>
+            <li><a href="#marcas">Marcas</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Categorias</h4>
+          <ul>
+            <li>Routers</li>
+            <li>Switches</li>
+            <li>Access Points</li>
+            <li>Firewalls</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <p>ventas@netstorepro.com</p>
+          <p>+57 300 000 0000</p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+      </div>
     </footer>
+
+    <!-- Overlay: oscurece fondo cuando el drawer del carrito esta abierto -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Drawer de carrito: lista de productos agregados y total acumulado -->
+    <aside id="cartDrawer" class="drawer" aria-label="Carrito lateral">
+      <div class="drawer-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Tu carrito</h3>
+        <button class="drawer-close" id="drawerClose" aria-label="Cerrar carrito">✕</button>
+      </div>
+
+      <div class="drawer-list" id="drawerList"></div>
+
+      <div class="drawer-footer">
+        <p style="margin-bottom:0.5rem; color: var(--color-muted);">Total estimado</p>
+        <h3 id="drawerTotal">$0</h3>
+      </div>
+    </aside>
+
+    <!-- Script principal de la home en arquitectura MVC (modelo-vista-controlador). -->
+    <script type="module" src="./js/home/homeApp.js"></script>
   </body>
 </html>
