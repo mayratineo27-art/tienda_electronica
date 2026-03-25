@@ -22,6 +22,11 @@ function generateAccessToken(user) {
   );
 }
 
+// Bloque de utilidades de fecha: genera expiracion de refresh token a 7 dias.
+function buildRefreshExpiryDate() {
+  return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+}
+
 // Bloque de utilidades JWT: emite refresh token de vida larga.
 function generateRefreshToken(user) {
   return jwt.sign(
@@ -108,13 +113,14 @@ async function login(req, res, next) {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
     const refreshTokenHash = await bcrypt.hash(refreshToken, 12);
+    const refreshExpiresAt = buildRefreshExpiryDate();
 
     // Se persiste hash del refresh token para permitir rotacion y revocacion.
     await pool.query(
       `UPDATE usuarios
-       SET refresh_token_hash = ?, refresh_token_expires_at = DATE_ADD(NOW(), INTERVAL 7 DAY)
+       SET refresh_token_hash = ?, refresh_token_expires_at = ?
        WHERE id = ?`,
-      [refreshTokenHash, user.id]
+      [refreshTokenHash, refreshExpiresAt, user.id]
     );
 
     // Se envía refresh token en cookie httpOnly para reducir superficie XSS.
@@ -177,12 +183,13 @@ async function refresh(req, res, next) {
     const newAccessToken = generateAccessToken(user);
     const newRefreshToken = generateRefreshToken(user);
     const newRefreshHash = await bcrypt.hash(newRefreshToken, 12);
+    const refreshExpiresAt = buildRefreshExpiryDate();
 
     await pool.query(
       `UPDATE usuarios
-       SET refresh_token_hash = ?, refresh_token_expires_at = DATE_ADD(NOW(), INTERVAL 7 DAY)
+       SET refresh_token_hash = ?, refresh_token_expires_at = ?
        WHERE id = ?`,
-      [newRefreshHash, user.id]
+      [newRefreshHash, refreshExpiresAt, user.id]
     );
 
     res.cookie("refresh_token", newRefreshToken, buildRefreshCookieOptions());
