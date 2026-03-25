@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detalle de Producto | Tienda de Redes</title>
+    <!-- Bloque de estilos: ordenado por capas para controlar la cascada -->
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
   </head>
-  <body>
+  <body class="page-product">
     <!-- Bloque de cabecera de pagina de detalle -->
     <header role="banner">
       <h1>Detalle de Producto</h1>
@@ -25,11 +31,16 @@
     <main>
       <!-- Seccion de informacion comercial principal -->
       <section aria-labelledby="producto-titulo">
-        <h2 id="producto-titulo">Router AX3000</h2>
-        <img src="./assets/router-ax3000.jpg" alt="Router AX3000 de color negro con cuatro antenas" />
-        <p>Router de alto desempeño para redes residenciales y pymes.</p>
-        <p><strong>Precio:</strong> $129.90</p>
-        <button type="button" aria-label="Agregar Router AX3000 al carrito">Agregar al carrito</button>
+        <h2 id="producto-titulo">Detalle del producto</h2>
+        <p id="product-status" role="status" aria-live="polite">Cargando producto...</p>
+        <img id="main-image" src="https://placehold.co/800x500?text=Producto" alt="Imagen principal del producto" />
+        <div id="thumbnail-list" aria-label="Galeria de imagenes del producto"></div>
+        <p id="product-description">Descripcion en proceso de carga.</p>
+        <p><strong>Precio:</strong> <span id="product-price">$0.00</span></p>
+
+        <label for="quantity-input">Cantidad</label>
+        <input id="quantity-input" type="number" min="1" value="1" />
+        <button id="add-to-cart-btn" type="button" aria-label="Agregar producto al carrito">Agregar al carrito</button>
       </section>
 
       <!-- Seccion de especificaciones tecnicas para toma de decision -->
@@ -57,5 +68,8 @@
     <footer>
       <p>Garantia oficial de fabricante por 12 meses.</p>
     </footer>
+
+    <!-- Bloque de script: galeria, cantidad y agregar al carrito -->
+    <script type="module" src="./js/producto.js"></script>
   </body>
 </html>

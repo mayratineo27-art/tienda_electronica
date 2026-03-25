@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Iniciar Sesion | Tienda de Redes</title>
+      <!-- Bloque de estilos: ordenado por capas para controlar la cascada -->
+      <link rel="stylesheet" href="./css/variables.css" />
+      <link rel="stylesheet" href="./css/base.css" />
+      <link rel="stylesheet" href="./css/components.css" />
+      <link rel="stylesheet" href="./css/pages.css" />
+      <link rel="stylesheet" href="./css/responsive.css" />
   </head>
-  <body>
+  <body class="page-login">
     <!-- Bloque de cabecera de autenticacion -->
     <header role="banner">
       <h1>Iniciar Sesion</h1>
@@ -16,7 +22,8 @@
     <main>
       <section aria-labelledby="login-titulo">
         <h2 id="login-titulo">Acceso de usuarios</h2>
-        <form aria-label="Formulario de inicio de sesion">
+        <p id="auth-status" role="status" aria-live="polite"></p>
+        <form id="login-form" aria-label="Formulario de inicio de sesion">
           <label for="login-email">Correo electronico</label>
           <input id="login-email" name="email" type="email" autocomplete="email" required />
 
@@ -36,5 +43,8 @@
     <footer>
       <p>Al continuar aceptas nuestros terminos y condiciones.</p>
     </footer>
+
+    <!-- Bloque de script: flujo de autenticacion para login -->
+    <script type="module" src="./js/auth.js"></script>
   </body>
 </html>

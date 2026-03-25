@@ -1,0 +1,32 @@
+/* Bloque mobile-first base: por defecto se optimiza para pantallas pequenas */
+/* No requiere media query, porque las reglas base ya son para movil. */
+
+/* Bloque tablet (>= 768px): mejora distribucion de grids */
+@media (min-width: 768px) {
+  section[aria-labelledby="categorias-titulo"],
+  section[aria-labelledby="resultados-titulo"],
+  section[aria-labelledby="kpi-titulo"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  section[aria-labelledby="producto-titulo"] {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* Bloque desktop (>= 1024px): separa filtros del catalogo y expande columnas */
+@media (min-width: 1024px) {
+  .page-catalog main {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  section[aria-labelledby="categorias-titulo"],
+  section[aria-labelledby="resultados-titulo"],
+  section[aria-labelledby="kpi-titulo"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalogo | Tienda de Redes</title>
+      <!-- Bloque de estilos: ordenado por capas para controlar la cascada -->
+      <link rel="stylesheet" href="./css/variables.css" />
+      <link rel="stylesheet" href="./css/base.css" />
+      <link rel="stylesheet" href="./css/components.css" />
+      <link rel="stylesheet" href="./css/pages.css" />
+      <link rel="stylesheet" href="./css/responsive.css" />
   </head>
-  <body>
+  <body class="page-catalog">
     <!-- Bloque de cabecera: titulo de contexto para el usuario -->
     <header role="banner">
       <h1>Catalogo de Productos</h1>
@@ -27,7 +33,10 @@
       <!-- Seccion lateral de filtros: categoria, precio y marca -->
       <section aria-labelledby="filtros-titulo">
         <h2 id="filtros-titulo">Filtros</h2>
-        <form aria-label="Formulario de filtros de catalogo">
+        <form id="filtersForm" aria-label="Formulario de filtros de catalogo">
+          <label for="search-input">Busqueda por nombre</label>
+          <input id="search-input" name="search" type="search" placeholder="Buscar router, switch, firewall..." />
+
           <fieldset>
             <legend>Categoria</legend>
             <label><input type="checkbox" name="categoria" value="routers" /> Routers</label>
@@ -41,6 +50,15 @@
             <label for="precio-max">Maximo</label>
             <input id="precio-max" name="precioMax" type="number" min="0" />
           </fieldset>
+
+          <label for="sort-select">Ordenar por</label>
+          <select id="sort-select" name="sort">
+            <option value="newest">Mas recientes</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="name-asc">Nombre: A-Z</option>
+          </select>
+
           <button type="submit">Aplicar filtros</button>
         </form>
       </section>
@@ -48,16 +66,11 @@
       <!-- Seccion de resultados: tarjetas de productos del catalogo -->
       <section aria-labelledby="resultados-titulo">
         <h2 id="resultados-titulo">Resultados</h2>
-        <article>
-          <h3>Router AX3000</h3>
-          <p>WiFi 6 doble banda para alto rendimiento.</p>
-          <a href="./producto.html" aria-label="Ver detalle del Router AX3000">Ver detalle</a>
-        </article>
-        <article>
-          <h3>Firewall UTM</h3>
-          <p>Control de trafico y seguridad perimetral.</p>
-          <a href="./producto.html" aria-label="Ver detalle del Firewall UTM">Ver detalle</a>
-        </article>
+        <p id="catalog-status" role="status" aria-live="polite">Cargando catalogo...</p>
+        <div id="results-list" class="product-grid"></div>
+        <nav aria-label="Paginacion de catalogo">
+          <div id="pagination"></div>
+        </nav>
       </section>
     </main>
 
@@ -65,5 +78,8 @@
     <footer>
       <p>Soporte tecnico: soporte@tiendaredes.com</p>
     </footer>
+
+    <!-- Bloque de script: logica de filtros, busqueda, paginacion y carrito -->
+    <script type="module" src="./js/catalogo.js"></script>
   </body>
 </html>

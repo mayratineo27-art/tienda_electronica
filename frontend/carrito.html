@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Carrito | Tienda de Redes</title>
+      <!-- Bloque de estilos: ordenado por capas para controlar la cascada -->
+      <link rel="stylesheet" href="./css/variables.css" />
+      <link rel="stylesheet" href="./css/base.css" />
+      <link rel="stylesheet" href="./css/components.css" />
+      <link rel="stylesheet" href="./css/pages.css" />
+      <link rel="stylesheet" href="./css/responsive.css" />
   </head>
-  <body>
+  <body class="page-cart">
     <!-- Bloque superior con titulo del modulo de compra -->
     <header role="banner">
       <h1>Resumen de Compra</h1>
@@ -26,21 +32,17 @@
       <!-- Seccion de articulos seleccionados por el usuario -->
       <section aria-labelledby="items-titulo">
         <h2 id="items-titulo">Productos agregados</h2>
-        <article>
-          <h3>Switch 24 Puertos</h3>
-          <p>Cantidad: 1</p>
-          <p>Subtotal: $210.00</p>
-          <button type="button" aria-label="Eliminar Switch 24 Puertos del carrito">Eliminar</button>
-        </article>
+        <p id="cart-status" role="status" aria-live="polite">Cargando carrito...</p>
+        <div id="cart-items"></div>
       </section>
 
       <!-- Seccion de resumen financiero para confirmar compra -->
       <section aria-labelledby="resumen-titulo">
         <h2 id="resumen-titulo">Totales</h2>
-        <p>Subtotal: $210.00</p>
-        <p>Envio estimado: $12.00</p>
-        <p><strong>Total: $222.00</strong></p>
-        <button type="button" aria-label="Proceder al pago">Continuar al pago</button>
+        <p>Subtotal: <strong id="summary-subtotal">$0.00</strong></p>
+        <p>Envio estimado: <strong id="summary-shipping">$0.00</strong></p>
+        <p>Total: <strong id="summary-total">$0.00</strong></p>
+        <button id="checkout-btn" type="button" aria-label="Proceder al pago">Continuar al pago</button>
       </section>
     </main>
 
@@ -48,5 +50,8 @@
     <footer>
       <p>Necesitas ayuda con tu compra? Contacta soporte.</p>
     </footer>
+
+    <!-- Bloque de script: logica de persistencia y resumen del carrito -->
+    <script type="module" src="./js/carrito.js"></script>
   </body>
 </html>

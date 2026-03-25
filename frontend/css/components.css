@@ -1,0 +1,114 @@
+/* Bloque de navbar: usa flexbox por ser distribucion lineal de items */
+nav[aria-label="Navegacion principal"],
+nav[aria-label="Navegacion de producto"],
+nav[aria-label="Navegacion de administracion"] {
+  background: var(--color-primary);
+  padding: var(--space-3) var(--space-4);
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+nav a {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Bloque de botones: CTA y acciones secundarias consistentes */
+button,
+a[role="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+button:hover,
+a[role="button"]:hover {
+  filter: brightness(1.05);
+  text-decoration: none;
+}
+
+/* Bloque de tarjetas: usa grid cuando hay catalogo en dos dimensiones */
+.product-grid,
+section[aria-labelledby="resultados-titulo"],
+section[aria-labelledby="categorias-titulo"],
+section[aria-labelledby="kpi-titulo"] {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+article {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Bloque de badges de estado: exito y error para stock o validaciones */
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.badge-success {
+  background: rgba(22, 163, 74, 0.15);
+  color: var(--color-success);
+}
+
+.badge-danger {
+  background: rgba(220, 38, 38, 0.15);
+  color: var(--color-danger);
+}
+
+/* Bloque de formularios: campos legibles y espaciado vertical consistente */
+form {
+  display: grid;
+  gap: var(--space-3);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid #e5e7eb;
+  padding: var(--space-4);
+}
+
+label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+}
+
+fieldset {
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+legend {
+  color: var(--color-muted);
+  font-weight: 700;
+}

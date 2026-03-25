@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro | Tienda de Redes</title>
+      <!-- Bloque de estilos: ordenado por capas para controlar la cascada -->
+      <link rel="stylesheet" href="./css/variables.css" />
+      <link rel="stylesheet" href="./css/base.css" />
+      <link rel="stylesheet" href="./css/components.css" />
+      <link rel="stylesheet" href="./css/pages.css" />
+      <link rel="stylesheet" href="./css/responsive.css" />
   </head>
-  <body>
+  <body class="page-register">
     <!-- Bloque de cabecera de alta de usuarios -->
     <header role="banner">
       <h1>Crear Cuenta</h1>
@@ -16,7 +22,8 @@
     <main>
       <section aria-labelledby="registro-titulo">
         <h2 id="registro-titulo">Registro de cliente</h2>
-        <form aria-label="Formulario de registro de usuario">
+        <p id="auth-status" role="status" aria-live="polite"></p>
+        <form id="register-form" aria-label="Formulario de registro de usuario">
           <label for="nombre">Nombre completo</label>
           <input id="nombre" name="name" type="text" autocomplete="name" required />
 
@@ -38,5 +45,8 @@
     <footer>
       <p>Protegemos tus datos bajo buenas practicas de seguridad.</p>
     </footer>
+
+    <!-- Bloque de script: flujo de autenticacion para registro -->
+    <script type="module" src="./js/auth.js"></script>
   </body>
 </html>

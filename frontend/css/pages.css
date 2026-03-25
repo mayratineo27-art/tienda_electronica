@@ -1,0 +1,67 @@
+/* Bloque de layout global por pagina: da respiracion a todas las vistas */
+body {
+  min-height: 100vh;
+}
+
+header,
+main,
+footer,
+section {
+  width: min(100% - 2rem, var(--container-max));
+  margin-inline: auto;
+}
+
+header {
+  padding: var(--space-5) 0 var(--space-4) 0;
+}
+
+main {
+  padding-bottom: var(--space-6);
+}
+
+footer {
+  padding: var(--space-5) 0;
+  color: var(--color-muted);
+}
+
+/* Bloque de inicio: hero con tarjeta destacada */
+section[aria-labelledby="hero-titulo"] {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-5);
+}
+
+/* Bloque de catalogo: estructura filtros + resultados */
+main > section[aria-labelledby="filtros-titulo"] {
+  margin-bottom: var(--space-4);
+}
+
+/* Bloque de detalle producto: imagen y datos principales */
+section[aria-labelledby="producto-titulo"] {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+/* Bloque de carrito: diferencia visual de resumen total */
+section[aria-labelledby="resumen-titulo"] {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid #e5e7eb;
+  padding: var(--space-4);
+}
+
+/* Bloque auth: limita ancho para lectura y conversion en formularios */
+section[aria-labelledby="login-titulo"],
+section[aria-labelledby="registro-titulo"] {
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+/* Bloque admin: acciones rapidas como lista de control */
+section[aria-labelledby="acciones-titulo"] ul {
+  display: grid;
+  gap: var(--space-3);
+}
