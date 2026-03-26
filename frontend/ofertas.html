@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ofertas | All-ing</title>
+    <style>
+      :root {
+        --bg: #f7f9ff;
+        --bg-top: #e4ecff;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #60708a;
+        --accent: #00d4ff;
+        --line: rgba(15, 23, 42, 0.12);
+        --nav-bg: rgba(255, 255, 255, 0.9);
+      }
+
+      html[data-theme="dark"] {
+        --bg: #08111f;
+        --bg-top: #1d2e53;
+        --surface: #111c31;
+        --text: #e9f0ff;
+        --muted: #9fb3d7;
+        --line: rgba(255,255,255,.1);
+        --nav-bg: rgba(8, 17, 31, 0.85);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top right, var(--bg-top), var(--bg) 45%);
+      }
+      .container { width: min(1100px, 92%); margin: 0 auto; }
+      .nav {
+        border-bottom: 1px solid var(--line);
+        background: var(--nav-bg);
+        position: sticky;
+        top: 0;
+      }
+      .nav-inner {
+        min-height: 68px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .menu { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
+      .menu a { color: var(--muted); text-decoration: none; }
+      .menu a.active, .menu a:hover { color: var(--text); }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+      }
+
+      .theme-toggle {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .logo {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+      }
+      .logo-mark {
+        width: 96px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(46, 63, 175, 0.3));
+      }
+
+      h1 { margin-top: 2rem; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+      p { color: var(--muted); }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0 3rem;
+      }
+      .item {
+        background: var(--surface);
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        padding: 1rem;
+      }
+      .price { font-weight: 800; color: var(--accent); font-size: 1.2rem; }
+      .old { text-decoration: line-through; color: #7f90b3; margin-left: .4rem; }
+      .cta {
+        display: inline-block;
+        margin-top: .7rem;
+        text-decoration: none;
+        color: #041a2d;
+        background: var(--accent);
+        border-radius: 999px;
+        padding: .55rem .95rem;
+        font-weight: 700;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 1.2rem 0 2rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="logo" href="./index.html" aria-label="All-ing inicio">
+          <img class="logo-mark" src="./assets/logo-alling.svg" alt="Logo original de All-ing" />
+        </a>
+        <div class="nav-actions">
+          <ul class="menu">
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="./categorias.html">Categorias</a></li>
+            <li><a class="active" href="./ofertas.html">Ofertas</a></li>
+            <li><a href="./marcas.html">Marcas</a></li>
+            <li><a href="./contacto.html">Contacto</a></li>
+          </ul>
+          <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Ofertas de la semana</h1>
+      <p>
+        Esta pagina vive por separado para que el usuario navegue como tienda real, no como landing de una sola pantalla.
+      </p>
+
+      <section class="grid" aria-label="productos en oferta">
+        <article class="item">
+          <h3>Router AX5400 Pro</h3>
+          <p class="price">$699.000 <span class="old">$839.000</span></p>
+          <a class="cta" href="./producto.html?id=1">Ver detalle</a>
+        </article>
+
+        <article class="item">
+          <h3>Switch 24 Puertos PoE</h3>
+          <p class="price">$1.290.000 <span class="old">$1.450.000</span></p>
+          <a class="cta" href="./producto.html?id=2">Ver detalle</a>
+        </article>
+
+        <article class="item">
+          <h3>Access Point Enterprise X</h3>
+          <p class="price">$549.000 <span class="old">$629.000</span></p>
+          <a class="cta" href="./producto.html?id=3">Ver detalle</a>
+        </article>
+
+        <article class="item">
+          <h3>Firewall Security Plus</h3>
+          <p class="price">$2.190.000 <span class="old">$2.390.000</span></p>
+          <a class="cta" href="./producto.html?id=4">Ver detalle</a>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        Enlace rapido al carrito: <a href="./carrito.html" style="color:inherit; font-weight:700;">abrir carrito</a>
+      </div>
+    </footer>
+
+    <script src="./js/theme.js"></script>
+  </body>
+</html>

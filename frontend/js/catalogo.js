@@ -43,6 +43,53 @@ function getSelectedCategories(formData) {
   return formData.getAll("categoria").map((value) => value.toLowerCase());
 }
 
+// Bloque de normalizacion: unifica variaciones de categoria para filtros por URL.
+function normalizeCategory(rawCategory) {
+  const value = String(rawCategory || "").trim().toLowerCase();
+
+  if (value === "access-point" || value === "access points") {
+    return "access-points";
+  }
+
+  if (value === "router") {
+    return "routers";
+  }
+
+  if (value === "switch") {
+    return "switches";
+  }
+
+  return value;
+}
+
+// Bloque de prefiltro por URL: permite abrir catalogo ya filtrado por categoria.
+function applyPresetFiltersFromUrl() {
+  if (!filtersForm) {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const categoryParam = normalizeCategory(params.get("categoria"));
+  const searchParam = sanitizeInput(String(params.get("search") || "").trim());
+
+  if (searchParam) {
+    searchInput.value = searchParam;
+  }
+
+  if (!categoryParam) {
+    return;
+  }
+
+  const categoryInputs = filtersForm.querySelectorAll("input[name='categoria']");
+  categoryInputs.forEach((input) => {
+    if (!(input instanceof HTMLInputElement)) {
+      return;
+    }
+
+    input.checked = normalizeCategory(input.value) === categoryParam;
+  });
+}
+
 // Bloque de filtrado: aplica categorias, rango de precios y texto de busqueda.
 function applyFilters() {
   const formData = new FormData(filtersForm);
@@ -262,6 +309,7 @@ async function initCatalogPage() {
   }
 
   await loadProducts();
+  applyPresetFiltersFromUrl();
   applyFilters();
   applySorting();
   bindFilterEvents();

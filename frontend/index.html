@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NetStore Pro | Tienda de Tecnologia de Redes</title>
+    <title>All-ing | Tienda de Tecnologia de Redes</title>
 
     <!-- Importamos tipografias para jerarquia visual profesional en e-commerce -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,16 +16,58 @@
     <style>
       /* Variables CSS: centralizan colores y fuentes para escalabilidad y consistencia visual */
       :root {
-        --color-bg: #0a0f1c;
-        --color-surface: #111a2f;
-        --color-surface-soft: #182440;
+        --color-bg: #f5f7fc;
+        --bg-glow: rgba(37, 99, 235, 0.16);
+        --color-surface: #ffffff;
+        --color-surface-soft: #eef3ff;
         --color-primary: #2563eb;
         --color-cyan: #00d4ff;
+        --color-text: #1f2937;
+        --color-muted: #5f6b81;
+        --color-border: rgba(15, 23, 42, 0.14);
+        --nav-bg: rgba(255, 255, 255, 0.9);
+        --icon-bg: rgba(255, 255, 255, 0.9);
+        --icon-color: #1f2937;
+        --search-bg: #ffffff;
+        --hero-copy-start: rgba(255, 255, 255, 0.95);
+        --hero-copy-end: rgba(237, 244, 255, 0.95);
+        --hero-media-1: #ebf2ff;
+        --hero-media-2: #dfe9ff;
+        --hero-media-3: #e7f4ff;
+        --hero-media-4: #dfe6ff;
+        --footer-bg: #ffffff;
+        --drawer-bg: #ffffff;
+        --btn-ghost-bg: rgba(37, 99, 235, 0.1);
+        --btn-ghost-border: rgba(37, 99, 235, 0.45);
+        --btn-ghost-text: #1f3b8a;
+        --font-title: "Syne", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+        --shadow-main: 0 14px 36px rgba(15, 23, 42, 0.14);
+      }
+
+      html[data-theme="dark"] {
+        --color-bg: #0a0f1c;
+        --bg-glow: rgba(37, 99, 235, 0.25);
+        --color-surface: #111a2f;
+        --color-surface-soft: #182440;
         --color-text: #e5e7eb;
         --color-muted: #9ca3af;
         --color-border: rgba(148, 163, 184, 0.24);
-        --font-title: "Syne", sans-serif;
-        --font-body: "DM Sans", sans-serif;
+        --nav-bg: rgba(8, 12, 24, 0.64);
+        --icon-bg: rgba(255, 255, 255, 0.04);
+        --icon-color: #e5e7eb;
+        --search-bg: rgba(11, 19, 38, 0.9);
+        --hero-copy-start: rgba(13, 24, 46, 0.95);
+        --hero-copy-end: rgba(20, 39, 74, 0.72);
+        --hero-media-1: #111f3f;
+        --hero-media-2: #1a2f5f;
+        --hero-media-3: #155988;
+        --hero-media-4: #0e2d5f;
+        --footer-bg: #090d19;
+        --drawer-bg: #0d1528;
+        --btn-ghost-bg: rgba(37, 99, 235, 0.2);
+        --btn-ghost-border: rgba(37, 99, 235, 0.65);
+        --btn-ghost-text: #ffffff;
         --shadow-main: 0 16px 50px rgba(0, 0, 0, 0.35);
       }
 
@@ -43,7 +85,7 @@
 
       body {
         font-family: var(--font-body);
-        background: radial-gradient(circle at 20% 10%, rgba(37, 99, 235, 0.25), transparent 40%), var(--color-bg);
+        background: radial-gradient(circle at 20% 10%, var(--bg-glow), transparent 40%), var(--color-bg);
         color: var(--color-text);
         min-height: 100vh;
       }
@@ -60,7 +102,7 @@
         inset: 0 0 auto 0;
         z-index: 1000;
         backdrop-filter: blur(14px);
-        background: rgba(8, 12, 24, 0.64);
+        background: var(--nav-bg);
         border-bottom: 1px solid var(--color-border);
       }
 
@@ -73,15 +115,21 @@
       }
 
       .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
         font-family: var(--font-title);
-        font-weight: 800;
-        letter-spacing: 0.6px;
-        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        color: var(--color-text);
         text-decoration: none;
       }
 
-      .logo span {
-        color: var(--color-cyan);
+      .logo-mark {
+        width: 102px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 10px rgba(46, 63, 175, 0.35));
       }
 
       .menu {
@@ -122,8 +170,8 @@
         height: 40px;
         border-radius: 50%;
         border: 1px solid var(--color-border);
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--color-text);
+        background: var(--icon-bg);
+        color: var(--icon-color);
         cursor: pointer;
         display: grid;
         place-items: center;
@@ -138,8 +186,8 @@
         opacity: 0;
         border: 1px solid var(--color-border);
         border-radius: 999px;
-        background: rgba(11, 19, 38, 0.9);
-        color: #fff;
+        background: var(--search-bg);
+        color: var(--color-text);
         padding: 0.6rem 0.9rem;
         transition: width 0.25s ease, opacity 0.25s ease;
       }
@@ -186,11 +234,11 @@
       }
 
       .hero-copy {
-        background: linear-gradient(120deg, rgba(13, 24, 46, 0.95), rgba(20, 39, 74, 0.72));
+        background: linear-gradient(120deg, var(--hero-copy-start), var(--hero-copy-end));
       }
 
       .hero-media {
-        background: linear-gradient(130deg, #111f3f, #1a2f5f, #155988, #0e2d5f);
+        background: linear-gradient(130deg, var(--hero-media-1), var(--hero-media-2), var(--hero-media-3), var(--hero-media-4));
         background-size: 300% 300%;
         animation: gradientMove 8s ease infinite;
         display: grid;
@@ -374,9 +422,9 @@
         border: none;
         border-radius: 12px;
         padding: 0.64rem;
-        background: rgba(37, 99, 235, 0.2);
-        color: #fff;
-        border: 1px solid rgba(37, 99, 235, 0.65);
+        background: var(--btn-ghost-bg);
+        color: var(--btn-ghost-text);
+        border: 1px solid var(--btn-ghost-border);
         cursor: pointer;
         font-weight: 700;
         transition: background 0.2s ease;
@@ -463,7 +511,7 @@
       footer {
         margin-top: 2rem;
         border-top: 1px solid var(--color-border);
-        background: #090d19;
+        background: var(--footer-bg);
       }
 
       .footer-grid {
@@ -509,7 +557,7 @@
         right: -380px;
         width: min(380px, 100%);
         height: 100vh;
-        background: #0d1528;
+        background: var(--drawer-bg);
         border-left: 1px solid var(--color-border);
         box-shadow: -20px 0 60px rgba(0, 0, 0, 0.45);
         transition: right 0.3s ease;
@@ -549,9 +597,13 @@
       .drawer-close {
         border: none;
         background: transparent;
-        color: #fff;
+        color: var(--color-text);
         font-size: 1.2rem;
         cursor: pointer;
+      }
+
+      .theme-btn {
+        font-size: 0.95rem;
       }
 
       .overlay {
@@ -575,6 +627,10 @@
           grid-template-columns: 1fr;
           min-height: auto;
           padding: 0.7rem 0;
+        }
+
+        .logo {
+          justify-content: center;
         }
 
         .menu {
@@ -608,6 +664,11 @@
           width: min(1140px, calc(100% - 1.2rem));
         }
 
+        .logo-mark {
+          width: 86px;
+          height: auto;
+        }
+
         .categories-grid,
         .products-grid,
         .brands-row,
@@ -627,14 +688,16 @@
     <!-- Navbar fija: integra branding, navegacion, busqueda y accesos de usuario/carrito -->
     <nav class="navbar" aria-label="Barra principal de navegacion">
       <div class="container navbar-inner">
-        <a class="logo" href="#inicio">Net<span>Store</span> Pro</a>
+        <a class="logo" href="./index.html" aria-label="All-ing inicio">
+          <img class="logo-mark" src="./assets/logo-alling.svg" alt="Logo original de All-ing" />
+        </a>
 
         <ul class="menu">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#categorias">Categorias</a></li>
-          <li><a href="#ofertas">Ofertas</a></li>
-          <li><a href="#marcas">Marcas</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="./index.html">Inicio</a></li>
+          <li><a href="./categorias.html">Categorias</a></li>
+          <li><a href="./ofertas.html">Ofertas</a></li>
+          <li><a href="./marcas.html">Marcas</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
         </ul>
 
         <div class="nav-right">
@@ -644,6 +707,7 @@
           </div>
 
           <button class="icon-btn" aria-label="Perfil de usuario">👤</button>
+          <button class="icon-btn theme-btn" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
 
           <div style="position: relative;">
             <button class="icon-btn" id="cartButton" aria-label="Abrir carrito">🛒</button>
@@ -653,7 +717,7 @@
       </div>
     </nav>
 
-    <main id="inicio" class="container">
+    <main class="container">
       <!-- Hero impactante: comunica valor principal y dirige a conversion con CTA -->
       <section class="hero">
         <div class="hero-box">
@@ -665,8 +729,8 @@
             </p>
 
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#ofertas">Comprar ofertas</a>
-              <a class="btn btn-secondary" href="#categorias">Explorar categorias</a>
+              <a class="btn btn-primary" href="./ofertas.html">Comprar ofertas</a>
+              <a class="btn btn-secondary" href="./categorias.html">Explorar categorias</a>
             </div>
           </div>
 
@@ -680,36 +744,9 @@
         </div>
       </section>
 
-      <!-- Categorias: tarjetas con icono SVG para acceso rapido por tipo de producto -->
-      <section id="categorias">
-        <h2 class="section-title">Categorias destacadas</h2>
-        <div class="categories-grid">
-          <article class="cat-card">
-            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M4 7h16v4H4z"/><path d="M6 11v6h12v-6"/></svg>
-            <h3>Routers</h3>
-            <p>Balanceo de trafico, WiFi 6 y seguridad avanzada para oficina y hogar.</p>
-          </article>
-          <article class="cat-card">
-            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M4 6h16v3H4z"/><path d="M4 11h16v3H4z"/><path d="M4 16h16v3H4z"/></svg>
-            <h3>Switches</h3>
-            <p>Switches administrables L2/L3 para segmentacion, PoE y crecimiento.</p>
-          </article>
-          <article class="cat-card">
-            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M12 3v3"/><path d="M6.5 6.5l2.1 2.1"/><path d="M17.5 6.5l-2.1 2.1"/><circle cx="12" cy="13" r="5"/></svg>
-            <h3>Access Points</h3>
-            <p>Cobertura empresarial con roaming inteligente y control centralizado.</p>
-          </article>
-          <article class="cat-card">
-            <svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.2 8.6-8 10-4.8-1.4-8-5-8-10V6z"/></svg>
-            <h3>Firewalls</h3>
-            <p>Control perimetral con IDS/IPS y politicas de seguridad por segmentacion.</p>
-          </article>
-        </div>
-      </section>
-
-      <!-- Ofertas: grilla de productos con datos ficticios y botones de carrito funcionales -->
-      <section id="ofertas">
-        <h2 class="section-title">Ofertas de la semana</h2>
+      <!-- Vista rapida de ofertas: muestra resumen y dirige a pagina dedicada -->
+      <section>
+        <h2 class="section-title">Ofertas destacadas</h2>
         <div class="products-grid" id="productsGrid">
           <article class="product-card" data-id="1" data-name="Router AX5400 Pro" data-price="980000">
             <span class="discount-badge">-22%</span>
@@ -779,8 +816,8 @@
         </div>
       </section>
 
-      <!-- Marcas: logos en gris con color al hover para efecto de descubrimiento -->
-      <section id="marcas">
+      <!-- Vista rapida de marcas: resumen y enlace a pagina de marcas -->
+      <section>
         <h2 class="section-title">Marcas aliadas</h2>
         <div class="brands-row">
           <div class="brand">Cisco</div>
@@ -789,6 +826,9 @@
           <div class="brand">MikroTik</div>
           <div class="brand">Juniper</div>
           <div class="brand">Aruba</div>
+        </div>
+        <div class="hero-actions" style="margin-top: 1rem;">
+          <a class="btn btn-secondary" href="./marcas.html">Ver todas las marcas y alianzas</a>
         </div>
       </section>
 
@@ -806,18 +846,20 @@
     </main>
 
     <!-- Footer: informacion corporativa y enlaces de navegacion secundaria -->
-    <footer id="contacto">
+    <footer>
       <div class="container footer-grid">
         <div class="footer-col">
-          <h4 class="logo" style="display:inline-block; margin-bottom: 0.5rem;">Net<span>Store</span> Pro</h4>
+          <h4 class="logo" style="display:inline-flex; margin-bottom: 0.5rem;">
+            <img class="logo-mark" src="./assets/logo-alling.svg" alt="Logo original de All-ing" />
+          </h4>
           <p>Especialistas en infraestructura de redes para empresas, ISP y proyectos de modernizacion digital.</p>
         </div>
         <div class="footer-col">
           <h4>Links utiles</h4>
           <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#ofertas">Ofertas</a></li>
-            <li><a href="#marcas">Marcas</a></li>
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="./ofertas.html">Ofertas</a></li>
+            <li><a href="./marcas.html">Marcas</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -833,6 +875,7 @@
           <h4>Contacto</h4>
           <p>ventas@netstorepro.com</p>
           <p>+57 300 000 0000</p>
+          <p><a href="./contacto.html">Formulario de contacto</a></p>
           <div class="socials">
             <a href="#" aria-label="Instagram">◎</a>
             <a href="#" aria-label="LinkedIn">in</a>
@@ -860,6 +903,7 @@
       </div>
     </aside>
 
+    <script src="./js/theme.js"></script>
     <!-- Script principal de la home en arquitectura MVC (modelo-vista-controlador). -->
     <script type="module" src="./js/home/homeApp.js"></script>
   </body>

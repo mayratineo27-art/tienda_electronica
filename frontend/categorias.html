@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categorias | All-ing</title>
+    <style>
+      :root {
+        --bg: #f6f8ff;
+        --bg-top: #e8efff;
+        --surface: #ffffff;
+        --surface-soft: #f1f5ff;
+        --text: #1f2937;
+        --muted: #60708a;
+        --primary: #00d4ff;
+        --primary-2: #30f19f;
+        --line: rgba(15, 23, 42, 0.12);
+        --nav-bg: rgba(255, 255, 255, 0.9);
+        --radius: 16px;
+      }
+
+      html[data-theme="dark"] {
+        --bg: #0b1220;
+        --bg-top: #14213d;
+        --surface: #121a2b;
+        --surface-soft: #17233a;
+        --text: #e8eefc;
+        --muted: #9db0d1;
+        --line: rgba(255, 255, 255, 0.08);
+        --nav-bg: rgba(11, 18, 32, 0.8);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(circle at 10% 10%, var(--bg-top), var(--bg) 45%);
+        color: var(--text);
+      }
+
+      .container { width: min(1100px, 92%); margin: 0 auto; }
+      .navbar {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(8px);
+        background: var(--nav-bg);
+        border-bottom: 1px solid var(--line);
+      }
+      .navbar-inner {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+      }
+      .logo-mark {
+        width: 96px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(46, 63, 175, 0.3));
+      }
+      .menu { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
+      .menu a { color: var(--muted); text-decoration: none; }
+      .menu a:hover, .menu a.active { color: var(--text); }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+      }
+
+      .theme-toggle {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 2.5rem; }
+      .lead { color: var(--muted); max-width: 760px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0 3rem;
+      }
+      .card {
+        background: linear-gradient(140deg, var(--surface), var(--surface-soft));
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.2rem;
+      }
+      .card h3 { margin-top: 0; }
+      .card p { color: var(--muted); min-height: 52px; }
+      .btn {
+        display: inline-block;
+        margin-top: .4rem;
+        text-decoration: none;
+        color: #021527;
+        background: linear-gradient(90deg, var(--primary), var(--primary-2));
+        font-weight: 700;
+        border-radius: 999px;
+        padding: .6rem 1rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 1.2rem 0 2.2rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container navbar-inner">
+        <a class="logo" href="./index.html" aria-label="All-ing inicio">
+          <img class="logo-mark" src="./assets/logo-alling.svg" alt="Logo original de All-ing" />
+        </a>
+        <div class="nav-actions">
+          <ul class="menu" aria-label="menu principal">
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a class="active" href="./categorias.html">Categorias</a></li>
+            <li><a href="./ofertas.html">Ofertas</a></li>
+            <li><a href="./marcas.html">Marcas</a></li>
+            <li><a href="./contacto.html">Contacto</a></li>
+          </ul>
+          <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Categorias de productos</h1>
+      <p class="lead">
+        Esta pagina separa las categorias en una vista propia. Cada tarjeta abre el catalogo filtrado para que no te quedes en la misma pantalla.
+      </p>
+
+      <!-- Cada boton abre otra pagina y envia la categoria en query string -->
+      <section class="grid" aria-label="categorias de red">
+        <article class="card">
+          <h3>Routers</h3>
+          <p>Rendimiento para hogar y pyme con enfoque en estabilidad y cobertura.</p>
+          <a class="btn" href="./catalogo.html?categoria=routers">Ver routers</a>
+        </article>
+
+        <article class="card">
+          <h3>Switches</h3>
+          <p>Conmutacion administrable L2/L3, ideal para segmentar y escalar red.</p>
+          <a class="btn" href="./catalogo.html?categoria=switches">Ver switches</a>
+        </article>
+
+        <article class="card">
+          <h3>Access Points</h3>
+          <p>WiFi empresarial con roaming y gestion centralizada por controlador.</p>
+          <a class="btn" href="./catalogo.html?categoria=access-points">Ver APs</a>
+        </article>
+
+        <article class="card">
+          <h3>Firewalls</h3>
+          <p>Seguridad perimetral con politicas, inspeccion y control avanzado.</p>
+          <a class="btn" href="./catalogo.html?search=firewall">Ver firewalls</a>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        All-ing 2026. Arquitectura multipagina activa.
+      </div>
+    </footer>
+
+    <script src="./js/theme.js"></script>
+  </body>
+</html>
